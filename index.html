@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Surprise ❤️</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&family=Poppins:wght@300;500&display=swap"
+        rel="stylesheet">
+
+
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Poppins, sans-serif;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+            background: linear-gradient(270deg, #ff758c, #ff7eb3, #ff9a9e);
+            background-size: 600% 600%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        section {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            margin: 10px;
+            background: white;
+            color: #ff4b7d;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 20px;
+            border: none;
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #ff4b7d;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.7);
+            color: #333;
+        }
+
+        .glow-name {
+            font-family: "Great Vibes", cursive;
+            font-size: 45px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff;
+            }
+
+            to {
+                text-shadow: 0 0 30px pink;
+            }
+        }
+
+        /* LOVE RAIN EFFECT */
+        .heart-rain {
+            position: fixed;
+            top: -10%;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall 5s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, .2);
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px;
+            width: 180px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .loveBox {
+            background: rgba(255, 255, 255, .2);
+            padding: 20px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: auto;
+            white-space: pre-line;
+            font-size: 18px;
+        }
+
+        .calc-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 25px;
+            max-width: 350px;
+            margin: 20px auto;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* MUSIC GRID - AS PER IMAGE */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 columns like image */
+            gap: 15px;
+            max-width: 1200px;
+            /* Wider to fit 4 large boxes */
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid #fff;
+            height: 110px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .box:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.03);
+        }
+
+        /* CENTER PREVIOUS BUTTON UNDER GRID */
+        #step8 .nav-btn {
+            margin-top: 50px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10001;
+        }
+
+        #yesButton {
+            background-color: #48d980;
+            color: white;
+        }
+
+        #noButton {
+            background-color: red;
+            color: white;
+        }
+
+        .popup-content {
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .popup-content img {
+            width: 220px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px pink;
+        }
+
+        #heartCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .comedy-side-images {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .comedy-side-images img {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        @media(max-width:900px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:500px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .box {
+                width: 85vw;
+                margin: 0 auto;
+            }
+        }
+
+        /* Bounce for the Yes button */
+        .bounce-btn {
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media(max-width:900px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:500px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="heartCanvas"></canvas>
+
+    <audio id="bgMusic" loop>
+        <source src="music/rks.mp3" type="audio/mpeg">
+    </audio>
+
+    <section id="disclaimer" style="display:block;">
+        <div class="loveBox" style="margin-top: 50px; border: 2px solid rgba(255,255,255,0.4);">
+            <h1 class="glow-name">🧡🧡🧡.....Before You Enter.....🧡🧡🧡</h1>
+            <p style="font-weight: 500; font-style: italic;">
+                A SMALL DISCLAIMER
+                * KONJAM PORUMAYA PARUNGA MADAM
+                * CORRECT Tana Answer Therinjalum Thapa Podunga
+                1.இந்த Webpage ல இருக்க எல்லா codings ம் நான் போடல ok va சுமார் 150 to 200 lines மட்டும் தான்
+                போட்டிருப்பேன் balance எல்லாம் Chatgpt தான்
+                அதாவது Letters மட்டும் தான் அதிலந்து எடுத்தேன்.
+                2. சுமார் 40 to 50 programs வேற வேற கொடுத்ததூ ChatGPT அதை அனைத்தையும் கலந்து என் காதலை யம் கலந்து என்
+                காதலை வெளிப்படுத்துகிரேன்
+                3. என் பொன்னான நேரத்தையும் உழைப்பையும் இதில் செலவு செய்துள்ளேன்
+                பின் குறிப்பு: நான் சொல்லி காட்டவில்லை இதை சொல்லி என் காதலை கட்டுகிறேன்
+                All These are My Efforts Not CHATGPT
+                BECAUSE OF...........
+                You ❤️....ONLY YOU</p>
+            <button onclick="startApp()">Enter into My Heart 💖</button>
+        </div>
+    </section>
+
+    <section id="step1">
+        <img src="images/1st.jpeg" width="250" style="border-radius: 20px;"><br>
+        <h2>Password Enter Pannu Grishu 🧡🔐</h2>
+        <input type="password" id="passInput" placeholder="Enter Secret Date">
+        <br>
+        <button onclick="checkPassword()">Unlock 🧡</button>
+        <p id="errorMsg" style="color: rgb(17, 17, 14);"></p>
+    </section>
+
+    <section id="step2">
+        <div class="flex flex-col items-center justify-center">
+            <h1 id="nameTyping" class="glow-name"></h1>
+            <video id="imageDisplay" src="images/dudu7.mp4" width="250" autoplay muted loop style="border-radius: 15px;"
+                alt="Cute kitten"></video>
+            <h1 id="valentineQuestion" class="text-3xl font-bold italic text-white my-4">
+                Will you be my Valentine?
+            </h1>
+            <div id="responseButtons" class="flex gap-4 pt-5 items-center justify-center">
+                <button id="yesButton"
+                    class="bounce-btn inline-flex items-center justify-center rounded-md text-xl font-medium cursor-pointer px-4 py-2 bg-green-500 text-white transition-all duration-300 ease-in-out hover:bg-green-400 min-h-12 min-w-[75px]">
+                    Yes
+                </button>
+                <button id="noButton"
+                    class="inline-flex items-center justify-center rounded-md text-xl font-medium cursor-pointer px-4 py-2 bg-red-500 text-white transition-colors hover:bg-red-700 h-12 min-w-[75px]">
+                    No
+                </button>
+            </div>
+            <button id="proceedBtn" class="custom-btn" style="display:none; margin-top:20px;"
+                onclick="show('stepGame')">Click to Continue My Love 🌸</button>
+        </div>
+    </section>
+
+    <section id="stepGame">
+        <h1 class="glow-name">Love Calculator 💘</h1>
+        <div class="calc-box">
+            <input type="text" id="name1" placeholder="Your Name"><br>
+            <input type="text" id="name2" placeholder="His Name"><br>
+            <button onclick="calculateLove()">Check % ⚡</button>
+            <div id="calcResult" style="margin-top: 15px;"></div>
+        </div>
+        <button id="afterGameBtn" style="display:none;" onclick="show(3)">Next❤️</button>
+        <br>
+        <button class="nav-btn" onclick="show(2)">Previous ❤️</button>
+    </section>
+
+    <section id="step3">
+        <h1 class="glow-name">My Beautiful Girl 💞🌸</h1>
+        <div class="gallery">
+            <div class="card"><img src="images/kutty.jpeg">
+                <p>Your smile is my sunshine ☀️</p>
+            </div>
+            <div class="card"><img src="images/kutty1.jpeg">
+                <p>Your eyes are my universe ✨</p>
+            </div>
+            <div class="card"><img src="images/kutty2.jpeg">
+                <p>Your nose are my oxygen 💖</p>
+            </div>
+            <div class="card"><img src="images/kutty3.jpeg">
+                <p>You are my forever 💖</p>
+            </div>
+        </div>
+        <button onclick="goToStep4()">Next❤️</button>
+        <br>
+        <button class="nav-btn" onclick="show('stepGame')">Previous ❤️</button>
+    </section>
+
+    <section id="step4">
+        <h1 class="glow-name">Happy Valentine's Day 💞</h1>
+        <img src="images/3rd.jpeg" width="250" style="border-radius: 20px;"><br><br>
+        <div class="loveBox">
+            <p id="typingText"></p>
+        </div>
+        <button onclick="show(5)">Next❤️</button>
+        <br>
+        <button class="nav-btn" onclick="show(3)">Previous ❤️</button>
+    </section>
+
+    <section id="step5">
+        <h1 class="glow-name">My World ❤️</h1>
+
+        <img src="images/LOVES.jpeg" width="400px" height="300PX" style="border-radius: 20px;"><br><br>
+        <p style="font-size: 20px;"><strong>தமிழ்:</strong><br>
+            
+            "1.இமைக்க மறந்த நொடிகளில் கூட உனை நினைக்க மறந்ததில்லை நீ தொலை தூரத்தில் அல்ல என் விழி ஓரத்தில் இருப்பதால்💫❤️"<br>
+            2.தூரங்கள் பிரிவில்லை, என் துணையே! துயிலில் சந்திப்போம் வா என் கனவில்💫❤️"<br>
+3.எனக்கு கவிதை எழுத தெரியாது தான், ஆனால் உன் பெயரை எழுதும் போது என்ணை கவிஞ்ஞன் என்று உணர்கிறேன் !!💫❤️
+            
+
+        <p style="font-size: 20px;"><strong>ENGLISH:</strong><br>
+1.Even in the moments when I forget to blink, I never forget to think of you, because you are not far away, but in the corner of my eye💫❤️"<br>
+2.Distances do not separate, my friend! Let's meet in my dreams, come and see.💫❤️<br>
+3.I don't know how to write poetry, but when I write your name, I feel like a poet!!💫❤️<br>
+
+            
+        </p>
+        <button onclick="show(8)">Next❤️</button>
+        <br>
+        <button class="nav-btn" onclick="show(4)">Previous ❤️</button>
+    </section>
+
+
+    <section id="step8">
+        <h1 class="glow-name">தமிழ் காதல்❤️</h1>
+        <div class="container">
+            <script>
+                for (let i = 1; i <= 12; i++) {
+                    document.write(`<div class="box" onclick="playSong(${i - 1})">Song ${i}</div>`);
+                }
+            </script>
+        </div>
+        <br>
+        <button class="nav-btn" onclick="show(5)">Previous ❤️</button>
+    </section>
+
+    <div class="popup" id="musicPopup">
+        <div class="popup-content">
+            <img id="popupImg" src="" alt="Song Cover">
+            <div id="lyrics"
+                style="font-size: 22px; color: pink; font-weight: bold; min-height: 45px; font-family: 'Pacifico', cursive;">
+            </div><br>
+            <button onclick="closePopup()">Close ❤️</button>
+        </div>
+    </div>
+
+    <audio id="songplayer"></audio>
+
+    <script>
+        const correctPassword = "25082025";
+        const music = document.getElementById("bgMusic");
+        const songPlayer = document.getElementById("songplayer");
+        const lyricsDiv = document.getElementById("lyrics");
+        let lyricTimer;
+
+        // NEW FUNCTION FOR DISCLAIMER
+        function startApp() {
+            document.getElementById("disclaimer").style.display = "none";
+            document.getElementById("step1").style.display = "block";
+        }
+
+        function show(step) {
+            document.querySelectorAll("section").forEach(s => s.style.display = "none");
+            if (typeof step === 'string') document.getElementById(step).style.display = "block";
+            else document.getElementById("step" + step).style.display = "block";
+        }
+
+        function checkPassword() {
+            if (document.getElementById("passInput").value === correctPassword) {
+                show(2);
+                startNameTyping();
+                music.play().catch(() => { });
+            } else {
+                document.getElementById("errorMsg").innerText = "Adi Pavi Date tey Maranthutiya di 💔";
+            }
+        }
+
+        function yesAnswer() { show('stepGame'); }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "heart-rain";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        function calculateLove() {
+            const n1 = document.getElementById("name1").value;
+            const n2 = document.getElementById("name2").value;
+            if (!n1 || !n2) return alert("Enter names first!");
+            const score = [99, 100, 101][Math.floor(Math.random() * 3)];
+            const dialogues = ["Soulmates da neenga!", "Calculator-ae shock aayiduchi! 😱", "Vera level love mapla un mela!", "Indha match-ah pirika yaralayum mudiyadhu! 🔥"];
+            document.getElementById("calcResult").innerHTML = `<h2 style="color:yellow;">${score}%</h2><p>${dialogues[Math.floor(Math.random() * dialogues.length)]}</p>`;
+            document.getElementById("afterGameBtn").style.display = "inline-block";
+        }
+
+        // --- NEW STEP 2 LOGIC ---
+        const IMAGE_PATHS = ['images/dudu8.mp4', 'images/dudu9.mp4', 'images/dudu.mp4', 'images/dudu1.mp4', 'images/dudu2.mp4', 'images/dudu8.mp4', 'images/dudu5.mp4'];
+        const NO_MESSAGES = ['No', 'Are you sure?', 'Yenna di', "Avolo Thana di", "Eruma madu", "Phaaa....👊"];
+        let noClickCount = 0;
+        let bHeight = 48, bWidth = 80, fSize = 20;
+
+        document.getElementById('noButton').addEventListener('click', () => {
+            if (noClickCount < 5) {
+                noClickCount++;
+                document.getElementById('imageDisplay').src = IMAGE_PATHS[noClickCount];
+                bHeight += 35; bWidth += 35; fSize += 20;
+                const yesBtn = document.getElementById('yesButton');
+                yesBtn.style.height = `${bHeight}px`;
+                yesBtn.style.width = `${bWidth}px`;
+                yesBtn.style.fontSize = `${fSize}px`;
+                document.getElementById('noButton').textContent = NO_MESSAGES[noClickCount];
+            }
+        });
+
+        document.getElementById('yesButton').addEventListener('click', () => {
+            document.getElementById('imageDisplay').src = IMAGE_PATHS[6];
+            document.getElementById('valentineQuestion').textContent = 'Yayyy!! :3';
+            document.getElementById('responseButtons').style.display = 'none';
+            document.getElementById('proceedBtn').style.display = 'inline-block';
+
+            const heart = confetti.shapeFromPath({ path: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' });
+            confetti({ particleCount: 50, spread: 360, shapes: [heart], colors: ['#ff69b4', '#ff1493'] });
+        });
+        // --- END NEW STEP 2 LOGIC ---
+
+        function calculateLove() {
+            const n1 = document.getElementById("name1").value;
+            const n2 = document.getElementById("name2").value;
+            if (!n1 || !n2) return alert("Enter names first!");
+            const score = 100;
+            document.getElementById("calcResult").innerHTML = `<h2 style="color:yellow;">${score}%</h2><p>Soulmates da neenga!</p>`;
+            document.getElementById("afterGameBtn").style.display = "inline-block";
+        }
+        const herName = "My Love 💖";
+        let ni = 0;
+        function startNameTyping() {
+            if (ni < herName.length) {
+                document.getElementById("nameTyping").innerHTML += herName.charAt(ni);
+                ni++; setTimeout(startNameTyping, 150);
+            }
+        }
+
+        function goToStep4() { show(4); startTyping(); }
+        const loveMessage = "You are my happiness and my forever ❤️\n\nநீ என் வாழ்க்கையின் ஒளி ✨\n\nI promise to love you always 💖";
+        let ti = 0;
+        function startTyping() {
+            if (ti === 0) document.getElementById("typingText").innerHTML = "";
+            if (ti < loveMessage.length) {
+                document.getElementById("typingText").innerHTML += loveMessage.charAt(ti);
+                ti++; setTimeout(startTyping, 50);
+            }
+        }
+
+        const songs = ["music/aalaipayuthey.mp3", "music/varanam.mp3", "music/mounaragam.mp3", "music/sundari.mp3", "music/ps.mp3", "music/thala.mp3", "music/geetha.mp3", "music/vips.mp3", "music/bahu.mp3", "music/aalaipayuthey1.mp3", "music/rmms.mp3", "music/theri.mp3"];
+        const images = ["images/ap.jpg", "images/va.jpg", "images/mouna.jpeg", "images/shundari.jpeg", "images/pse.jpeg", "images/kk.jpeg", "images/govintham.jpeg", "images/vip.jpeg", "images/bk.jpeg", "images/payu.jpeg", "images/rms.jpeg", "images/therii.jpeg"];
+        const lyricsArr =
+            ["Na Kdavul kitta Vendikiran...unnaku Asingama ....Makka Oru Ponadati Kedaikanum nu.....🤭.... ...    HI PONDATI🌏❤️...."
+                , "...... Nan Itha Solliye Aaganum........Neee Avolo Alagu👀",
+                "..Unnaku Bayam......Yenna Pathu Bayam......😘👑",
+                "...Yennai than Anbey Maranthayo.......✨..Marapeeen Yendreyy Nenaithayooo.....💙💚💛❤️",
+                "Uyireee Ungaludayathuuu Devi....💘📜",
+                "She is Some one Special........💘😊",
+                "Pera Sonna Bayanthuduvomaa Yenaaa...🤭🤝",
+                "Unna Vitta vera Yaru Di papa ...... 🤭🌏",
+                "Nan Unnodayavannn....💘...DEVI...❤️",
+                "...........Bayanthutiyaaaa...?❤️🙂......Uyireyyyyyy Pochuuuu😭💘",
+                "Irupingala Princessss💘",
+                "Nee Yennakuu Innoruuu Amma ma 😭😭😭😭😘... "];
+
+        function playSong(n) {
+            music.pause();
+            songPlayer.src = songs[n];
+            songPlayer.play();
+            document.getElementById("musicPopup").style.display = "flex";
+            document.getElementById("popupImg").src = images[n];
+            typeLyrics(lyricsArr[n]);
+        }
+
+        function typeLyrics(text) {
+            clearInterval(lyricTimer);
+            lyricsDiv.innerHTML = "";
+            let i = 0;
+            lyricTimer = setInterval(() => {
+                if (i < text.length) {
+                    lyricsDiv.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(lyricTimer);
+                }
+            }, 70);
+        }
+
+        function closePopup() {
+            clearInterval(lyricTimer);
+            document.getElementById("musicPopup").style.display = "none";
+            songPlayer.pause();
+            music.play();
+        }
+
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const particles = [];
+        function heartPath(t) { return { x: 16 * Math.pow(Math.sin(t), 3), y: 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t) }; }
+        for (let i = 0; i < 300; i++) {
+            const t = Math.random() * Math.PI * 2; const p = heartPath(t);
+            particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, tx: canvas.width / 2 + p.x * 12, ty: canvas.height / 2 - p.y * 12, vx: 0, vy: 0 });
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.vx += (p.tx - p.x) * 0.02; p.vy += (p.ty - p.y) * 0.02; p.vx *= 0.9; p.vy *= 0.9;
+                p.x += p.vx; p.y += p.vy;
+                ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+
+</html>
